@@ -329,6 +329,66 @@
         </div>
     </div>
 
+    <!-- Pemeliharaan Sistem / System Maintenance (Artisan commands) -->
+    <div class="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden flex flex-col">
+        <div class="p-6 border-b border-slate-100">
+            <h3 class="text-lg font-bold text-slate-800">Pemeliharaan & Utilitas Sistem</h3>
+            <p class="text-xs text-slate-400 font-medium">Jalankan fungsi pemeliharaan Laravel langsung dari dashboard tanpa melalui terminal</p>
+        </div>
+        <div class="p-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <!-- Storage Link -->
+            <div class="border border-slate-100 rounded-2xl p-4 flex flex-col justify-between space-y-4 hover:border-slate-200 transition-all bg-slate-50/20">
+                <div>
+                    <h4 class="text-sm font-bold text-slate-800">Tautkan Storage</h4>
+                    <p class="text-xs text-slate-400 mt-1">Hubungkan folder publik ke folder penyimpanan bukti transfer agar bukti bayar dapat diakses langsung oleh browser.</p>
+                </div>
+                <form action="{{ route('admin.storage-link') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="w-full inline-flex items-center justify-center space-x-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 px-4 py-2.5 rounded-xl text-xs font-bold border border-emerald-100 transition-all cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                        </svg>
+                        <span>Jalankan storage:link</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Clear Cache -->
+            <div class="border border-slate-100 rounded-2xl p-4 flex flex-col justify-between space-y-4 hover:border-slate-200 transition-all bg-slate-50/20">
+                <div>
+                    <h4 class="text-sm font-bold text-slate-800">Bersihkan Cache & Optimasi</h4>
+                    <p class="text-xs text-slate-400 mt-1">Hapus semua cache konfigurasi, rute, view, dan cache aplikasi untuk memperbarui perubahan kode/sistem.</p>
+                </div>
+                <form action="{{ route('admin.clear-cache') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="w-full inline-flex items-center justify-center space-x-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 px-4 py-2.5 rounded-xl text-xs font-bold border border-blue-100 transition-all cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                        <span>Jalankan optimize:clear</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Run Migration -->
+            <div class="border border-slate-100 rounded-2xl p-4 flex flex-col justify-between space-y-4 hover:border-slate-200 transition-all bg-slate-50/20">
+                <div>
+                    <h4 class="text-sm font-bold text-slate-800">Jalankan Migrasi Database</h4>
+                    <p class="text-xs text-slate-400 mt-1">Jalankan migrasi database yang belum dieksekusi ke database production (force mode).</p>
+                </div>
+                <form action="{{ route('admin.migrate') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menjalankan migrasi database di production?')">
+                    @csrf
+                    <button type="submit" class="w-full inline-flex items-center justify-center space-x-1.5 bg-amber-50 hover:bg-amber-100 text-amber-700 px-4 py-2.5 rounded-xl text-xs font-bold border border-amber-100 transition-all cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+                        </svg>
+                        <span>Jalankan migrate --force</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Edit User & Finances Modal -->
     <div x-show="openEditModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm" x-cloak>
         <div class="bg-white rounded-3xl max-w-2xl w-full p-8 border border-slate-100 shadow-2xl relative max-h-[90vh] overflow-y-auto" @click.away="openEditModal = false">

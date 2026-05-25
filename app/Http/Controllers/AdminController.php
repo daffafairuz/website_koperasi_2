@@ -230,4 +230,37 @@ class AdminController extends Controller
 
         return response()->stream($callback, 200, $headers);
     }
+
+    public function storageLink()
+    {
+        try {
+            \Illuminate\Support\Facades\Artisan::call('storage:link');
+            $output = \Illuminate\Support\Facades\Artisan::output();
+            return redirect()->route('admin.dashboard')->with('success', 'Storage link berhasil dihubungkan! Output: ' . trim($output));
+        } catch (\Exception $e) {
+            return redirect()->route('admin.dashboard')->with('error', 'Gagal membuat storage link: ' . $e->getMessage());
+        }
+    }
+
+    public function clearCache()
+    {
+        try {
+            \Illuminate\Support\Facades\Artisan::call('optimize:clear');
+            $output = \Illuminate\Support\Facades\Artisan::output();
+            return redirect()->route('admin.dashboard')->with('success', 'Cache berhasil dibersihkan! Output: ' . trim($output));
+        } catch (\Exception $e) {
+            return redirect()->route('admin.dashboard')->with('error', 'Gagal membersihkan cache: ' . $e->getMessage());
+        }
+    }
+
+    public function runMigration()
+    {
+        try {
+            \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+            $output = \Illuminate\Support\Facades\Artisan::output();
+            return redirect()->route('admin.dashboard')->with('success', 'Migrasi database berhasil dijalankan! Output: ' . trim($output));
+        } catch (\Exception $e) {
+            return redirect()->route('admin.dashboard')->with('error', 'Gagal menjalankan migrasi: ' . $e->getMessage());
+        }
+    }
 }

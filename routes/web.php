@@ -27,6 +27,9 @@ Route::middleware('auth')->group(function () {
         Route::post('/admin/users', [AdminController::class, 'storeUser'])->name('admin.users.store');
         Route::put('/admin/users/{user}', [AdminController::class, 'updateUser'])->name('admin.users.update');
         Route::get('/admin/export-csv', [AdminController::class, 'exportCsv'])->name('admin.users.export-csv');
+        Route::post('/admin/storage-link', [AdminController::class, 'storageLink'])->name('admin.storage-link');
+        Route::post('/admin/clear-cache', [AdminController::class, 'clearCache'])->name('admin.clear-cache');
+        Route::post('/admin/migrate', [AdminController::class, 'runMigration'])->name('admin.migrate');
     });
 
     // Member Dashboard (accessible only by member)
